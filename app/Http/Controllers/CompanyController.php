@@ -14,7 +14,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        return view('company.index');
+        $datos['companies'] = Company::paginate(5);
+        return view('company.index', $datos);
     }
 
     /**
@@ -47,7 +48,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Company $company)
+    public function show(Company $companies)
     {
         //
     }
@@ -55,9 +56,11 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
         //
+        $company = Company::findOrFail($id);
+        return view('company.edit', compact('company'));
     }
 
     /**
@@ -71,8 +74,10 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Company $company)
+    public function destroy($id)
     {
         //
+        Company::destroy($id);
+        return redirect('company');
     }
 }
