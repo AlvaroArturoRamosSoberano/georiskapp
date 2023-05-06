@@ -1,6 +1,6 @@
 Formulario que tendra los datos en comun con create y edit
 <label for="identifier_key">Identificador</label>
-<input type="text" name="identifier_key" value="{{ $company->identifier_key}}" id="identifier_key">
+<input type="text" name="identifier_key" value="{{ $company->identifier_key }}" id="identifier_key">
 <br>
 
 <label for="description">Descripción</label>

@@ -1,3 +1,4 @@
+Mostrar listado de empresas
 <table class="table table-light">
 
     <thead class="thead-light">
@@ -24,9 +25,10 @@
                 <td>{{ $company->brand_id }}</td>
                 <td>{{ $company->geographic_detail_id }}</td>
                 <td>
-                    <a href="{{ url('/company/' . $company->id.'/edit') }}">
-                        Editar |
+                    <a href="{{ url('/company/' . $company->id . '/edit') }}">
+                        Editar
                     </a>
+                    |
                     <form action="{{ url('/company/' . $company->id) }}" method="post">
                         @csrf
                         {{ method_field('DELETE') }}

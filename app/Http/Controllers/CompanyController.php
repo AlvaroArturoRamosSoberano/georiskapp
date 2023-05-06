@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 
 class CompanyController extends Controller
 {
@@ -14,8 +17,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        $datos['companies'] = Company::paginate(5);
-        return view('company.index', $datos);
+        $companies = Company::paginate(5);
+        return view('company.index', compact('companies'));
     }
 
     /**
@@ -24,7 +27,10 @@ class CompanyController extends Controller
     public function create()
     {
         //
-        return view('company.create');
+        //return view('company.create');
+
+        $company = new Company();
+        return view('company.create', compact('company'));
     }
 
     /**
@@ -66,9 +72,27 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, $id)
     {
         //
+        $company = Company::findOrFail($id);
+
+        $companies = $request->except(['_token', '_method']);
+        if ($request->hasFile('image_path')) {
+            // Eliminamos la imagen anterior (si existe)
+            if ($company->image_path) {
+                Storage::delete($company->image_path);
+            }
+
+            // Subimos la nueva imagen y obtenemos la ruta
+            $image_path = $request->file('image_path')->store('public/images');
+            $data['image_path'] = $image_path;
+        }
+
+        $company->update($companies);
+
+        // Redirigimos al usuario a la vista de detalle de la compañía actualizada
+        return redirect()->route('company.index', $company->id);
     }
 
     /**
