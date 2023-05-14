@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\GeographicDetailController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,7 @@ use App\Http\Controllers\CompanyController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 /*
@@ -24,5 +27,20 @@ Route::get('/company', function () {
 });
 Route::get('/company/create', [CompanyController::class, 'create']);
 */
+//Autenticación
+Route::resource('company', CompanyController::class)->middleware('auth');
+Route::resource('brand', BrandController::class)->middleware('auth');
 
-Route::resource('company', CompanyController::class);
+//Eliminar cosas del Login
+Auth::routes(['register' => false, 'reset' => false]);
+
+
+Route::get('/home', [CompanyController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/home', [CompanyController::class, 'index'])->name('home');
+});
+
+
+Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
+Route::get('/geographicDetail', [GeographicDetailController::class, 'create'])->name('geographicDetail.create');

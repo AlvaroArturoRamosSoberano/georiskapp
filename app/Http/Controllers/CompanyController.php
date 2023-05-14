@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyStoreRequest;
+use App\Models\Brand;
 use App\Models\Company;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -14,10 +14,21 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $companies = Company::paginate(5);
+        $query = $request->input('q'); // obtener el valor del input de búsqueda
+
+        // si hay un valor de búsqueda, buscar las compañías que coincidan
+        if (!empty($query)) {
+            $companies = Company::where('identifier_key', 'like', '%' . $query . '%')
+                ->orWhere('description', 'like', '%' . $query . '%')
+                ->paginate(4);
+        } else {
+            // si no hay un valor de búsqueda, obtener todas las compañías
+            $companies = Company::paginate(4);
+        }
+
         return view('company.index', compact('companies'));
     }
 
@@ -30,7 +41,9 @@ class CompanyController extends Controller
         //return view('company.create');
 
         $company = new Company();
-        return view('company.create', compact('company'));
+        $brands = Brand::pluck('name', 'id');
+        $companies = Company::pluck('kind_company', 'id')->unique();
+        return view('company.create', compact('company', 'brands', 'companies'));
     }
 
     /**
@@ -43,12 +56,13 @@ class CompanyController extends Controller
         $companies = request()->except('_token');
 
         if ($request->hasFile('image_path')) {
-            $companies['image_path'] = $request->file('image_path')->store('uploads', 'public');
+            $companies['image_path'] = $request->file('image_path')->store('images/companies', 'public');
         }
 
         Company::insert($companies);
 
-        return response()->json($companies);
+        //return response()->json($companies);
+        return redirect('company')->with('mensaje', 'Empresa ingresada con éxito');
     }
 
     /**
@@ -66,7 +80,10 @@ class CompanyController extends Controller
     {
         //
         $company = Company::findOrFail($id);
-        return view('company.edit', compact('company'));
+        $brands = Brand::pluck('name', 'id');
+        $companies = Company::pluck('kind_company', 'id')->unique();
+        
+        return view('company.edit', compact('company', 'brands', 'companies'));
     }
 
     /**
@@ -76,23 +93,20 @@ class CompanyController extends Controller
     {
         //
         $company = Company::findOrFail($id);
-
         $companies = $request->except(['_token', '_method']);
+
         if ($request->hasFile('image_path')) {
             // Eliminamos la imagen anterior (si existe)
-            if ($company->image_path) {
-                Storage::delete($company->image_path);
-            }
-
+            Storage::delete('public/' . $company->image_path);
             // Subimos la nueva imagen y obtenemos la ruta
-            $image_path = $request->file('image_path')->store('public/images');
-            $data['image_path'] = $image_path;
+            $companies['image_path'] = $request->file('image_path')->store('images/companies', 'public');
         }
 
+        // Actualizamos la compañía en la base de datos
         $company->update($companies);
 
-        // Redirigimos al usuario a la vista de detalle de la compañía actualizada
-        return redirect()->route('company.index', $company->id);
+        // Redirigimos al usuario a la vista de index de la compañía actualizada
+        return redirect()->route('company.index');
     }
 
     /**
@@ -101,7 +115,15 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
-        Company::destroy($id);
-        return redirect('company');
+        $company = Company::findOrFail($id);
+
+        // Eliminamos la imagen de la compañía (si existe)
+        if ($company->image_path) {
+            Storage::delete('public/' . $company->image_path);
+        }
+
+        // Eliminamos la compañía de la base de datos
+        $company->delete();
+        return redirect('company')->with('mensaje', 'Empresa eliminada con éxito');
     }
 }

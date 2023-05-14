@@ -21,6 +21,7 @@ class GeographicDetailController extends Controller
     public function create()
     {
         //
+        return view('geographicDetail.create');
     }
 
     /**

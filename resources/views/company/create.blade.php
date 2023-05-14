@@ -1,19 +1,25 @@
-Formulario de Creacion de Compañia
+@extends('layouts.app')
 
-<form action="{{ url('/company') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    @include('company.form');
-</form>
-
-<!-- /resources/views/post/create.blade.php -->
+@section('content')
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
 
-<!-- Create Post Form -->
+@endif
+<div class="container-fluid">
+    <script src="{{ asset('js/formatIdentifierKey.js') }}"></script>
+
+    <form action="{{ url('/company') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @include('company.form', ['modo' => 'Ingresar'])
+    </form>
+
+
+</div>
+
+@endsection
