@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('longitude');
             $table->string('address');
             $table->string('zip_code');
-            $table->string('township');
-            $table->string('state');
+            $table->foreignId('colony_id')->constrained();
+            $table->foreignId('township_id')->constrained();
+            $table->foreignId('state_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

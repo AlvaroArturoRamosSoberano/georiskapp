@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Brand;
 use App\Models\Company;
+use App\Models\GeographicDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -43,6 +44,12 @@ class CompanyController extends Controller
         $company = new Company();
         $brands = Brand::pluck('name', 'id');
         $companies = Company::pluck('kind_company', 'id')->unique();
+
+        //$geographicDetails = new GeographicDetail();
+
+
+
+
         return view('company.create', compact('company', 'brands', 'companies'));
     }
 
@@ -53,15 +60,14 @@ class CompanyController extends Controller
     {
         //
         //$companies = request->all();
-        $companies = request()->except('_token');
+        $companies = $request->except('_token');
 
         if ($request->hasFile('image_path')) {
             $companies['image_path'] = $request->file('image_path')->store('images/companies', 'public');
         }
 
-        Company::insert($companies);
+        Company::create($companies);
 
-        //return response()->json($companies);
         return redirect('company')->with('mensaje', 'Empresa ingresada con éxito');
     }
 
@@ -82,7 +88,7 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
         $brands = Brand::pluck('name', 'id');
         $companies = Company::pluck('kind_company', 'id')->unique();
-        
+
         return view('company.edit', compact('company', 'brands', 'companies'));
     }
 

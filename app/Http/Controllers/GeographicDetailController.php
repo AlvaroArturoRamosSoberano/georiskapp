@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\GeographicDetail;
+use App\Models\Colony;
+use App\Models\Township;
+use App\Models\State;
 use Illuminate\Http\Request;
 
 class GeographicDetailController extends Controller
@@ -10,9 +13,22 @@ class GeographicDetailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $query = $request->input('q'); // obtener el valor del input de búsqueda
+
+        // si hay un valor de búsqueda, buscar las compañías que coincidan
+        if (!empty($query)) {
+            $geographic_detail = GeographicDetail::where('longitude', 'like', '%' . $query . '%')
+                ->orWhere('latitude', 'like', '%' . $query . '%')
+                ->paginate(4);
+        } else {
+            // si no hay un valor de búsqueda, obtener todas las compañías
+            $geographic_detail = GeographicDetail::paginate(4);
+        }
+
+        return view('geographicDetail.index', compact('geographicDetail'));
     }
 
     /**
@@ -21,7 +37,12 @@ class GeographicDetailController extends Controller
     public function create()
     {
         //
-        return view('geographicDetail.create');
+        $geographic_detail = new GeographicDetail();
+        $colonies = Colony::pluck('name', 'id');
+        $townships = Township::pluck('name', 'id');
+        $states = State::pluck('name', 'id');
+
+        return view('geographicDetail.create', compact('geographic_detail', 'colonies', 'townships', 'states'));
     }
 
     /**
@@ -30,6 +51,10 @@ class GeographicDetailController extends Controller
     public function store(Request $request)
     {
         //
+        $geographic_detail = request()->except('_token');
+        GeographicDetail::insert($geographic_detail);
+
+        return redirect('geographic_detail')->with('mensaje', 'Empresa ingresada con éxito');
     }
 
     /**

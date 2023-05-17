@@ -16,6 +16,10 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Icon web-->
+    <link rel="icon" href="{{ asset('favicon/georiskapp.png') }}" type="image/x-icon">
+
 </head>
 
 <body>
@@ -23,7 +27,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/company') }}">
-                    <img src="{{ asset('/storage/app/public/georiskapp.png') }}" alt="Logo de la aplicación" width="300" height="24">
+                    <img src="{{ asset('images/georiskapp.png') }}" alt="Logo de la aplicación" width="300" height="24">
                     {{ config('app.name', 'GeoRiskApp') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -87,6 +91,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 </body>
 
 </html>

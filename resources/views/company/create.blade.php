@@ -12,14 +12,10 @@
 
 @endif
 <div class="container-fluid">
-    <script src="{{ asset('js/formatIdentifierKey.js') }}"></script>
-
     <form action="{{ url('/company') }}" method="post" enctype="multipart/form-data">
         @csrf
         @include('company.form', ['modo' => 'Ingresar'])
     </form>
-
-
 </div>
 
 @endsection

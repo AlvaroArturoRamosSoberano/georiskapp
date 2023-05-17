@@ -80,7 +80,13 @@
                     <li class="page-item"><a class="page-link" href="{{ $companies->nextPageUrl() }}">Siguiente</a></li>
             </ul>
         </nav>
+        <div id="company">
+            <example-component>Hola</example-component>
+        </div>
+
 
     </div>
 </div>
+<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+
 @endsection
