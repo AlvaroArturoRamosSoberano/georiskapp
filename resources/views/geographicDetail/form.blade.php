@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col">
             <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="latitude" value="{{$geographic_detail->latitude}}" placeholder="Latitude">
+                <input type="text" class="form-control" name="latitude" id="latitude" value="{{$geographic_detail->latitude}}" placeholder="Latitude">
                 <label for="latitude">Latitud</label>
             </div>
         </div>
@@ -70,6 +70,6 @@
 
     <div class="w-100 d-flex justify-content-end">
         <input class="btn btn-success btn-sm mt-2 me-2" type="submit" value="Empresa">
-        <a class="btn btn-primary btn-sm mt-2" href="{{ url('company/') }}">Regresar</a>
+        <a class="btn btn-primary btn-sm mt-2" href="{{ url('geographicDetail/') }}">Regresar</a>
     </div>
 </div>

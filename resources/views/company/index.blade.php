@@ -44,7 +44,9 @@
                 @foreach ($companies as $company)
                 <tr style="text-align: center;">
                     <td>{{ $company->id }}</td>
-                    <td><img src="{{ asset('storage') . '/' . $company->image_path }}" class="img-thumbnail img-fluid" alt="{{ $company->identifier_key }}" width="100"></td>
+                    <td class="align-middle">
+                        <img src="{{ asset('storage') . '/' . $company->image_path }}" class="img-thumbnail img-fluid" alt="{{ $company->identifier_key }}" style="max-height: 100px;">
+                    </td>
                     <td>{{ $company->identifier_key }}</td>
                     <td>{{ $company->description }}</td>
                     <td>{{ $company->kind_company }}</td>
@@ -80,13 +82,8 @@
                     <li class="page-item"><a class="page-link" href="{{ $companies->nextPageUrl() }}">Siguiente</a></li>
             </ul>
         </nav>
-        <div id="company">
-            <example-component>Hola</example-component>
-        </div>
-
-
     </div>
 </div>
-<script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 
 @endsection
+

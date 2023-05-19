@@ -14,6 +14,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <!-- Styles -->
+    
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
@@ -25,10 +28,11 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container" style="box-shadow: none;">
                 <a class="navbar-brand" href="{{ url('/company') }}">
-                    <img src="{{ asset('images/georiskapp.png') }}" alt="Logo de la aplicación" width="300" height="24">
-                    {{ config('app.name', 'GeoRiskApp') }}
+                    <img src="{{ asset('storage/images/georiskapp.png') }}" alt="Logo de la aplicación" width="100" height="50">
+                   <!--Esta comentado la linea 32-->
+                    {{-- {{ config('app.name', 'GeoRiskApp') }} --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -91,7 +95,7 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+    
 </body>
 
 </html>

@@ -18,4 +18,5 @@ inputs.forEach(input => {
             }
         }
     });
-}); < /script>
+}); <
+/script>

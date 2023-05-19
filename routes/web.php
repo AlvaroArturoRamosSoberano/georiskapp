@@ -33,7 +33,7 @@ Route::resource('brand', BrandController::class)->middleware('auth');
 Route::resource('geographicDetail', GeographicDetailController::class)->middleware('auth');
 
 //Eliminar cosas del Login
-Auth::routes(['register' => false, 'reset' => false]);
+Auth::routes(['register' => false, 'reset' => false, 'brand.index'=> false]);
 
 
 Route::get('/home', [CompanyController::class, 'index'])->name('home');

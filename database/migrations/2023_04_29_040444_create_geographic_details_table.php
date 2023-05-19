@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('geographic_details', function (Blueprint $table) {
             $table->id();
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->bigInteger('latitude');
+            $table->bigInteger('longitude');
             $table->string('address');
             $table->string('zip_code');
             $table->foreignId('colony_id')->constrained();

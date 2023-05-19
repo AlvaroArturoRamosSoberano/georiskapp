@@ -58,6 +58,7 @@
         <input class="btn btn-success btn-sm mt-2 me-2" type="submit" value="{{ $modo }} Empresa">
         <a class="btn btn-primary btn-sm mt-2" href="{{ url('company/') }}">Regresar</a>
     </div>
+    
 </div>
 <script>
     // Obtener todos los campos de entrada en el formulario
