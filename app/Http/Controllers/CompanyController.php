@@ -6,6 +6,11 @@ use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Brand;
 use App\Models\Company;
 use App\Models\GeographicDetail;
+use App\Models\Township;
+use App\Models\State;
+use App\Models\Colony;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,15 +47,18 @@ class CompanyController extends Controller
         //return view('company.create');
 
         $company = new Company();
+        $geographic_detail = new GeographicDetail();
         $brands = Brand::pluck('name', 'id');
         $companies = Company::pluck('kind_company', 'id')->unique();
+        $colonies = Colony::pluck('name', 'id');
+        $brands = Brand::pluck('name', 'id');
+        $townships = Township::pluck('name', 'id');
+        $states = State::pluck('name', 'id');
 
         //$geographicDetails = new GeographicDetail();
 
 
-
-
-        return view('company.create', compact('company', 'brands', 'companies'));
+        return view('company.create', compact('geographic_detail', 'colonies', 'townships', 'states', 'company', 'brands', 'companies'));
     }
 
     /**
@@ -58,18 +66,24 @@ class CompanyController extends Controller
      */
     public function store(CompanyStoreRequest $request)
     {
-        //
-        //$companies = request->all();
         $companies = $request->except('_token');
 
         if ($request->hasFile('image_path')) {
             $companies['image_path'] = $request->file('image_path')->store('images/companies', 'public');
         }
 
-        Company::create($companies);
+        $geographic_detail = $request->only('latitude', 'longitude', 'address', 'zip_code', 'colony_id', 'township_id', 'state_id');
+        $geographic_detail = GeographicDetail::create($geographic_detail); // Crear el registro en la tabla GeographicDetail
+
+        $companies['geographic_detail_id'] = $geographic_detail->id; // Asignar el ID del detalle geográfico a geographic_detail_id
+
+        $company = Company::create($companies); // Crear el registro en la tabla Company
 
         return redirect('company')->with('mensaje', 'Empresa ingresada con éxito');
     }
+
+
+
 
     /**
      * Display the specified resource.
@@ -86,10 +100,15 @@ class CompanyController extends Controller
     {
         //
         $company = Company::findOrFail($id);
+        $geographic_detail = $company->geographicDetail;
         $brands = Brand::pluck('name', 'id');
         $companies = Company::pluck('kind_company', 'id')->unique();
+        $colonies = Colony::pluck('name', 'id');
+        $brands = Brand::pluck('name', 'id');
+        $townships = Township::pluck('name', 'id');
+        $states = State::pluck('name', 'id');
 
-        return view('company.edit', compact('company', 'brands', 'companies'));
+        return view('company.edit', compact('geographic_detail', 'colonies', 'townships', 'states', 'company', 'brands', 'companies'));
     }
 
     /**
@@ -120,7 +139,6 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
         $company = Company::findOrFail($id);
 
         // Eliminamos la imagen de la compañía (si existe)
@@ -128,8 +146,14 @@ class CompanyController extends Controller
             Storage::delete('public/' . $company->image_path);
         }
 
+        // Eliminamos el detalle geográfico asociado a la compañía
+        if ($company->geographicDetail) {
+            $company->geographicDetail->delete();
+        }
+
         // Eliminamos la compañía de la base de datos
         $company->delete();
+
         return redirect('company')->with('mensaje', 'Empresa eliminada con éxito');
     }
 }

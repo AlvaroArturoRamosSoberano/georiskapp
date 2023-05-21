@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\GeographicDetail;
 use App\Models\Colony;
 use App\Models\Township;
+use App\Models\Company;
 use App\Models\State;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class GeographicDetailController extends Controller
@@ -38,11 +40,15 @@ class GeographicDetailController extends Controller
     {
         //
         $geographic_detail = new GeographicDetail();
+        $company = new Company();
+        $companies = Company::pluck('kind_company', 'id')->unique();
         $colonies = Colony::pluck('name', 'id');
+        $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
-        return view('geographicDetail.create', compact('geographic_detail', 'colonies', 'townships', 'states'));
+
+        return view('geographicDetail.create', compact('geographic_detail', 'colonies', 'townships', 'states', 'company', 'companies', 'brands'));
     }
 
     /**
@@ -51,8 +57,17 @@ class GeographicDetailController extends Controller
     public function store(Request $request)
     {
         //
-        $geographic_details = request()->except('_token');
-        GeographicDetail::create($geographic_details);
+        // Obtener los datos para GeographicDetail
+        $geographic_details = $request->except('_token');
+        // Crear el registro en GeographicDetail
+        $geographic_detail = GeographicDetail::create($geographic_details);
+
+        // Obtener los datos para Company
+        $company_data = $request->only('identifier_key', 'description', 'image_path', 'kind_company', 'brand_id');
+        // Asignar el geographic_detail_id al Company
+        $company_data['geographic_detail_id'] = $geographic_detail->id;
+        // Crear el registro en Company
+        $company = Company::create($company_data);
 
         return redirect('geographicDetail')->with('mensaje', 'Empresa ingresada con éxito');
     }
@@ -71,11 +86,13 @@ class GeographicDetailController extends Controller
     public function edit($id)
     {
         //
+        // Obtener el detalle geográfico y la empresa relacionada
         $geographic_detail = GeographicDetail::findOrFail($id);
         $colonies = Colony::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
+        // Pasar las variables a la vista
         return view('geographicDetail.edit', compact('geographic_detail', 'colonies', 'townships', 'states'));
     }
 

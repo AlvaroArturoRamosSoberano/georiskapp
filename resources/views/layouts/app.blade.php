@@ -47,7 +47,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ route('brand.index') }}">Lineas de empresas</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="{{ route('geographicDetail.index') }}">Detalles Geograficos</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
