@@ -39,7 +39,7 @@
                                 <th>#</th>
                                 <th>Imagen</th>
                                 <th>Identificador</th>
-                                <th>Descripción</th>
+                                <th class="">Descripción</th>
                                 <th>Tipo de Compañia</th>
                                 <th>Marca</th>
                                 <th>Acciones</th>
@@ -55,7 +55,7 @@
                                             style="max-height: 100px;">
                                     </td>
                                     <td>{{ $company->identifier_key }}</td>
-                                    <td>{{ $company->description }}</td>
+                                    <td class="text-truncate">{{ $company->description }}</td>
                                     <td>{{ $company->kind_company }}</td>
                                     <td>{{ $company->brand->name }}</td>
                                     <td>
