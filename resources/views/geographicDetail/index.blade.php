@@ -30,44 +30,47 @@
                         <i class="bi bi-search" id="search"></i>
                     </div>
                 </div>
-                <table class="table align-middle">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Latitud</th>
-                            <th>Longitud</th>
-                            <th>Direccion</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($geographic_details as $geographic_detail)
-                            <tr>
-                                <td>{{ $geographic_detail->id }}</td>
-                                <td>{{ $geographic_detail->latitude }}</td>
-                                <td>{{ $geographic_detail->longitude }}</td>
-                                <td>{{ $geographic_detail->address }}</td>
-                                <td>
-                                    <button type="button"
-                                        onclick="window.location.href='{{ url('/geographicDetail/' . $geographic_detail->id . '/edit') }}'"
-                                        class="btn bg-transparent btn-sm">
-                                        <i class="bi bi-pencil-square" id="icons"></i>
-                                    </button>
+                <div class="container">
 
-                                    <form action="{{ url('/geographicDetail/' . $geographic_detail->id) }}" method="post"
-                                        class="d-inline">
-                                        @csrf
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" onclick="return confirm('¿Quieres borrar?')"
-                                            class="btn bg-transparent btn-sm">
-                                            <i class="bi bi-trash" id="icons"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>
+                                <th>Direccion</th>
+                                <th>Acciones</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($geographic_details as $geographic_detail)
+                                <tr>
+                                    <td>{{ $geographic_detail->id }}</td>
+                                    <td>{{ $geographic_detail->latitude }}</td>
+                                    <td>{{ $geographic_detail->longitude }}</td>
+                                    <td>{{ $geographic_detail->address }}</td>
+                                    <td>
+                                        <button type="button"
+                                            onclick="window.location.href='{{ url('/geographicDetail/' . $geographic_detail->id . '/edit') }}'"
+                                            class="btn bg-transparent btn-sm">
+                                            <i class="bi bi-pencil-square" id="icons"></i>
+                                        </button>
+
+                                        <form action="{{ url('/geographicDetail/' . $geographic_detail->id) }}"
+                                            method="post" class="d-inline">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" onclick="return confirm('¿Quieres borrar?')"
+                                                class="btn bg-transparent btn-sm">
+                                                <i class="bi bi-trash" id="icons"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 <div class="table_footer">
                     <!--pagination-->
                     <nav aria-label="Page navigation example">

@@ -17,14 +17,14 @@ body {
     box-shadow: 8px 8px 5px 0px #bdbdbdbf;
     width: 80%;
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .table_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px 0;
+    padding: 20px 12px 0;
 }
 .input_search {
     position: relative;
@@ -37,7 +37,7 @@ button.btn.bg-transparent.btn-sm {
     box-shadow: none;
 }
 input {
-    border-radius: 7px;
+    border-radius: 4px;
     width: 400px;
     outline: none;
     padding: 3px;
