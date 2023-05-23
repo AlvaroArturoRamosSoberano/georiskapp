@@ -26,7 +26,10 @@
         <body>
             <div class="containertab m-auto">
                 <div class="table_header">
-                    <a href="{{ url('company/create') }}" class="btn btn-primary btn-sm">Ingresar Nueva Empresa</a>
+                    <div class="ml-auto">
+                        <a href="{{ url('company/create') }}" class="btn btn-primary btn-sm">Ingresar Nueva Empresa</a>
+                        <a href="{{ url('exportar-kml') }}" class="btn btn-primary btn-sm">Exportar Datos</a>
+                    </div>
                     <div class="input_search">
                         <input type="text" class="search-input" placeholder="Buscar" />
                         <i class="bi bi-search" id="search"></i>

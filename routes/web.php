@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\KmlController;
 use App\Http\Controllers\GeographicDetailController;
 use GuzzleHttp\Middleware;
 
@@ -45,3 +46,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
 Route::get('/geographicDetail', [GeographicDetailController::class, 'index'])->name('geographicDetail.index');
+Route::get('/exportar-kml', [KmlController::class, 'exportarKml'])->name('exportar-kml');

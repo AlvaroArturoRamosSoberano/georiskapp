@@ -22,12 +22,15 @@ body {
 
 .table_header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 20px 12px 0;
 }
 .input_search {
     position: relative;
+    margin-left: auto;
+}
+.ml-auto {
+    margin-right: auto;
 }
 button.btn.bg-transparent.btn-sm {
     border: none;

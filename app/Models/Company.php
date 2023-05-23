@@ -20,4 +20,8 @@ class Company extends Model
     {
         return $this->belongsTo(GeographicDetail::class);
     }
+    public function gasPlant()
+    {
+        return $this ->hasMany(GasPlant::class);
+    }
 }
