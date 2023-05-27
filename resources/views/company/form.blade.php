@@ -1,17 +1,27 @@
-<div class="container">
-    <h1>{{ $modo }} Empresa</h1>
+<div class="container" id="vue">
+    {{--     <h1>{{ $modo }} Empresa</h1> --}}
+
+    <el-steps :active="active" align-center finish-status="success">
+        <el-step v-for="step in stepper" style="cursor: pointer" @click="changeStepper(step.number)" :title="step.title" :description="step.description" />
+        {{-- <el-step title="Step 2" description="Some description" />
+            <el-step title="Step 3" description="Some description" />
+            <el-step title="Step 4" description="Some description" /> --}}
+    </el-steps>
 
     <div class="row">
         <div class="col">
             <div class="form-floating">
-                <input type="text" class="form-control" name="identifier_key" value="{{ $company->identifier_key }}" id="identifier_key" title="El identificador debe tener el formato XX/XXXXX/XXX/XX/XXXX" placeholder="Identificador">
+                <input type="text" class="form-control" name="identifier_key" value="{{ $company->identifier_key }}"
+                    id="identifier_key" title="El identificador debe tener el formato XX/XXXXX/XXX/XX/XXXX"
+                    placeholder="Identificador">
                 <label for="identifier_key">Identificador</label>
             </div>
         </div>
 
         <div class="col">
             <div class="form-floating mb-2">
-                <input type="text" class="form-control" name="description" value="{{ $company->description }}" id="description" placeholder="Descripción">
+                <input type="text" class="form-control" name="description" value="{{ $company->description }}"
+                    id="description" placeholder="Descripción">
                 <label for="description">Descripción</label>
             </div>
         </div>
@@ -19,7 +29,8 @@
 
     <div class="mb-2">
         <label for="image_path">Imagen del Establecimiento</label>
-        <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $company->image_path }}" alt="{{ $company->identifier_key }}" width="100">
+        <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $company->image_path }}"
+            alt="{{ $company->identifier_key }}" width="100">
         <input type="file" class="form-control" name="image_path" value="" id="image_path">
     </div>
 
@@ -29,7 +40,8 @@
                 <select class="form-select" name="kind_company" id="kind_company" placeholder="Tipo de Empresa">
                     <option value="">Seleccione un tipo de empresa</option>
                     @foreach ($companies as $id => $kind)
-                    <option value="{{ $kind }}" {{ $company->kind_company == $kind ? 'selected' : '' }}>{{ $kind }}</option>
+                        <option value="{{ $kind }}" {{ $company->kind_company == $kind ? 'selected' : '' }}>
+                            {{ $kind }}</option>
                     @endforeach
                 </select>
                 <label for="kind_company">Tipo de Empresa</label>
@@ -41,7 +53,8 @@
                 <select class="form-select" name="brand_id" id="brand_id" placeholder="Tipo de Linea">
                     <option value="">Seleccione una línea</option>
                     @foreach ($brands as $id => $name)
-                    <option value="{{ $id }}" {{ $id == $company->brand_id ? 'selected' : '' }}>{{ $name }}</option>
+                        <option value="{{ $id }}" {{ $id == $company->brand_id ? 'selected' : '' }}>
+                            {{ $name }}</option>
                     @endforeach
                 </select>
                 <label for="brand_id">Marca de la Empresa</label>
@@ -50,20 +63,23 @@
     </div>
 
     <div class="form-group mb-2">
-        <input type="text" class="form-control" name="geographic_detail_id" value="{{ $company->geographic_detail_id }}" id="geographic_detail_id" hidden>
+        <input type="text" class="form-control" name="geographic_detail_id"
+            value="{{ $company->geographic_detail_id }}" id="geographic_detail_id" hidden>
     </div>
 
     <div class="row">
         <div class="col">
             <div class="form-floating mb-2">
-                <input type="number" step="any" class="form-control" name="latitude" id="latitude" value="{{$geographic_detail->latitude}}" placeholder="Latitude">
+                <input type="number" step="any" class="form-control" name="latitude" id="latitude"
+                    value="{{ $geographic_detail->latitude }}" placeholder="Latitude">
                 <label for="latitude">Latitud</label>
             </div>
         </div>
 
         <div class="col">
             <div class="form-floating">
-                <input type="number" step="any" class="form-control" name="longitude" id="longitude" value="{{$geographic_detail->longitude}}" placeholder="Longitud">
+                <input type="number" step="any" class="form-control" name="longitude" id="longitude"
+                    value="{{ $geographic_detail->longitude }}" placeholder="Longitud">
                 <label for="longitude">Longitud</label>
             </div>
         </div>
@@ -71,7 +87,8 @@
 
     <div>
         <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="address" name="address" value="{{$geographic_detail->address}}" placeholder="Dirección">
+            <input type="text" class="form-control" id="address" name="address"
+                value="{{ $geographic_detail->address }}" placeholder="Dirección">
             <label for="address">Dirección</label>
         </div>
     </div>
@@ -79,7 +96,8 @@
     <div class="row">
         <div class="col-2">
             <div class="form-floating">
-                <input type="text" class="form-control" name="zip_code" id="zip_code" value="{{$geographic_detail->zip_code}}" placeholder="Codigo postal">
+                <input type="text" class="form-control" name="zip_code" id="zip_code"
+                    value="{{ $geographic_detail->zip_code }}" placeholder="Codigo postal">
                 <label for="zip_code">Código Postal</label>
             </div>
         </div>
@@ -89,7 +107,8 @@
                 <select class="form-select" name="colony_id" id="colony_id" placeholder="Colonia">
                     <option value="">Seleccione una Colonia</option>
                     @foreach ($colonies as $id => $name)
-                    <option value="{{ $id }}" {{$id == $geographic_detail->colony_id ? 'selected' : '' }}>{{ $name }}</option>
+                        <option value="{{ $id }}"
+                            {{ $id == $geographic_detail->colony_id ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
                 </select>
                 <label for="colony_id">Colonia</label>
@@ -101,7 +120,9 @@
                 <select class="form-select" name="township_id" id="township_id" placeholder="Municipio">
                     <option value="">Seleccione un Municipio</option>
                     @foreach ($townships as $id => $name)
-                    <option value="{{ $id }}" {{$id == $geographic_detail->township_id ? 'selected' : '' }}>{{ $name }}</option>
+                        <option value="{{ $id }}"
+                            {{ $id == $geographic_detail->township_id ? 'selected' : '' }}>{{ $name }}
+                        </option>
                     @endforeach
                 </select>
                 <label for="township_id">Municipio</label>
@@ -113,7 +134,8 @@
                 <select class="form-select" name="state_id" id="state_id" placeholder="Estado">
                     <option value="">Seleccione un Estado</option>
                     @foreach ($states as $id => $name)
-                    <option value="{{ $id }}" {{$id == $geographic_detail->state_id ? 'selected' : '' }}>{{ $name }}</option>
+                        <option value="{{ $id }}"
+                            {{ $id == $geographic_detail->state_id ? 'selected' : '' }}>{{ $name }}</option>
                     @endforeach
                 </select>
                 <label for="state_id">Estado</label>
@@ -148,4 +170,52 @@
             }
         });
     });
+</script>
+
+<!-- Import style -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.3.1/dist/index.min.css">
+<!-- Import Vue 3 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js"></script>
+<!-- Import component library -->
+<script src="https://cdn.jsdelivr.net/npm/element-plus@2.3.1/dist/index.full.min.js"></script>
+
+<script>
+    const {
+        createApp,
+        ref,
+    } = Vue
+    const App = {
+        setup() {
+            const message = ref("Juan es puto")
+            const stepper = ref([{
+                    title: "Datos Generales",
+                    number: 1,
+                    description: "Hola"
+                },
+                {
+                    title: "Datos Geograficos",
+                    number: 2,
+                    description: "Hola2"
+                },
+                {
+                    title: "Datos Regulatorios",
+                    number: 3,
+                    description: "Hola3"
+                }
+
+            ])
+            const active = ref(1)
+            const changeStepper = (number) => {
+                active.value = number
+            }
+            return {
+                stepper,
+                active,
+                changeStepper,
+            }
+        }
+    }
+    const app = createApp(App)
+    app.use(ElementPlus);
+    app.mount('#vue')
 </script>
