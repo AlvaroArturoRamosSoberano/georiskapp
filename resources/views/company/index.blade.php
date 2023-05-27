@@ -67,7 +67,6 @@
                                             class="btn bg-transparent btn-sm">
                                             <i class="bi bi-pencil-square" id="icons"></i>
                                         </button>
-
                                         <form action="{{ url('/company/' . $company->id) }}" method="post"
                                             class="d-inline">
                                             @csrf
@@ -77,6 +76,9 @@
                                                 <i class="bi bi-trash" id="icons"></i>
                                             </button>
                                         </form>
+                                        <button type="button">
+                                            <i class="bi bi-printer"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
