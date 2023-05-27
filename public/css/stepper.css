@@ -1,0 +1,14 @@
+.custom-stepper .el-step__head.is-process .el-step__line-inner,
+.custom-stepper .el-step__head.is-process .el-step__icon {
+    background-color: #0c6cfc;
+}
+
+.custom-stepper .el-step__head.is-finish .el-step__line-inner,
+.custom-stepper .el-step__head.is-finish .el-step__icon {
+    background-color: #0c6cfc;
+}
+
+.custom-stepper .el-step__head.is-error .el-step__line-inner,
+.custom-stepper .el-step__head.is-error .el-step__icon {
+    background-color: #0c6cfc;
+}

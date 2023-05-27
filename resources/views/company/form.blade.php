@@ -4,14 +4,14 @@
 
         <fieldset>
             {{-- <legend>Bar progress</legend> --}}
-            <el-steps :active="active" align-center finish-status="success">
+            <el-steps :space="200" :active="active" align-center finish-status="success" simple>
                 <el-step v-for="step in stepper" style="cursor: pointer" @click="changeStepper(step.number)"
-                    :title="step.title" :description="step.description" />
+                    :title="step.title" :description="step.description">
+                </el-step>
             </el-steps>
-
         </fieldset>
 
-        <fieldset>
+        <fieldset v-if="active === 1">
             {{-- <legend>Company information</legend> --}}
             <section class="form-section">
                 <div class="form-group">
@@ -80,8 +80,8 @@
                         value="{{ $company->geographic_detail_id }}" id="geographic_detail_id" hidden>
                 </div>
         </fieldset>
-        
-        <fieldset>
+
+        <fieldset v-if="active === 2">
             <legend>Information Geographic Details</legend>
             <div class="row">
                 <div class="col">
@@ -179,7 +179,9 @@
 
         <div class="w-100 d-flex justify-content-end">
             <input class="btn btn-success btn-sm mt-2 me-2" type="submit" value="{{ $modo }} Empresa">
-            <a class="btn btn-primary btn-sm mt-2" href="{{ url('company/') }}">Regresar</a>
+            <a class="btn btn-primary btn-sm mt-2 me-2" href="{{ url('company/') }}">Regresar</a>
+            <el-button style="margin-top: 8px" @click="next">Siguiente paso</el-button>
+
         </div>
         </section>
     </form>
@@ -222,7 +224,7 @@
     } = Vue
     const App = {
         setup() {
-            const message = ref("Juan es puto")
+            const message = ref("Stepper")
             const stepper = ref([{
                     title: "Datos Generales",
                     number: 1,
@@ -244,10 +246,14 @@
             const changeStepper = (number) => {
                 active.value = number
             }
+            const next = (number) => {
+                if (active.value++ > number) active.value = 0
+            }
             return {
                 stepper,
                 active,
                 changeStepper,
+                next,
             }
         }
     }
