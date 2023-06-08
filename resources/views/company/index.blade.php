@@ -76,8 +76,8 @@
                                                 <i class="bi bi-trash" id="icons"></i>
                                             </button>
                                         </form>
-                                        <button type="button">
-                                            <i class="bi bi-printer"></i>
+                                        <button type="button" class="btn bg-transparent btn-sm">
+                                            <i class="bi bi-printer" id="icons"></i>
                                         </button>
                                     </td>
                                 </tr>

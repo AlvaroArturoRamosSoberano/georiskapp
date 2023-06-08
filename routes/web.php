@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\KmlController;
 use App\Http\Controllers\GeographicDetailController;
+use App\Http\Controllers\GasPlantController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -32,6 +33,7 @@ Route::get('/company/create', [CompanyController::class, 'create']);
 Route::resource('company', CompanyController::class)->middleware('auth');
 Route::resource('brand', BrandController::class)->middleware('auth');
 Route::resource('geographicDetail', GeographicDetailController::class)->middleware('auth');
+Route::resource('gasPlant', GasPlantController::class)->middleware('auth');
 
 //Eliminar cosas del Login
 Auth::routes(['register' => false, 'reset' => false, 'brand.index'=> false]);
@@ -46,4 +48,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
 Route::get('/geographicDetail', [GeographicDetailController::class, 'index'])->name('geographicDetail.index');
+Route::get('/gasPlant', [GasPlantController::class, 'index'])->name('gasPlant.index');
 Route::get('/exportar-kml', [KmlController::class, 'exportarKml'])->name('exportar-kml');

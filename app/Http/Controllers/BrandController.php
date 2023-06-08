@@ -39,7 +39,7 @@ class BrandController extends Controller
         if ($request->hasFile('logo_path')) {
             $brands['logo_path'] = $request->file('logo_path')->store('images/brands', 'public');
         }
-        Brand::insert($brands);
+        Brand::create($brands);
         return redirect('brand')->with('mensaje', 'Linea ingresada con éxito');
     }
 

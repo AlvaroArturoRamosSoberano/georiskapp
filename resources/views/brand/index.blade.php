@@ -32,8 +32,8 @@
                     <i class="bi bi-search" id="search"></i>
                 </div>
             </div>
-            <div class="container">
 
+            <div class="container">
                 <table class="table align-middle">
                     <thead>
                         <tr>
@@ -74,7 +74,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table_footer">
+
+            <section class="table_footer">
                 <!--pagination-->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end pagination-sm ">
@@ -88,7 +89,7 @@
                         <li class="page-item"><a class="page-link" href="{{ $brands->nextPageUrl() }}">Siguiente</a></li>
                     </ul>
                 </nav>
-            </div>
+            </section>
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

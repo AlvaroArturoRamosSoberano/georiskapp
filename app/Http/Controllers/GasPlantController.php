@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GasPlant;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class GasPlantController extends Controller
@@ -13,6 +14,7 @@ class GasPlantController extends Controller
     public function index()
     {
         //
+        return view('gasPlant.index');
     }
 
     /**
@@ -21,6 +23,8 @@ class GasPlantController extends Controller
     public function create()
     {
         //
+        $companies = Company::pluck('identifier_key', 'id');
+        return view('gasPlant.create', compact('companies'));
     }
 
     /**

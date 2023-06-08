@@ -51,7 +51,6 @@ class CompanyController extends Controller
         $brands = Brand::pluck('name', 'id');
         $companies = Company::pluck('kind_company', 'id')->unique();
         $colonies = Colony::pluck('name', 'id');
-        $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
@@ -141,14 +140,14 @@ class CompanyController extends Controller
     {
         $company = Company::findOrFail($id);
 
-        // Eliminamos la imagen de la compañía (si existe)
-        if ($company->image_path) {
-            Storage::delete('public/' . $company->image_path);
-        }
-
         // Eliminamos el detalle geográfico asociado a la compañía
         if ($company->geographicDetail) {
             $company->geographicDetail->delete();
+        }
+
+        // Eliminamos la imagen de la compañía (si existe)
+        if ($company->image_path) {
+            Storage::delete('public/' . $company->image_path);
         }
 
         // Eliminamos la compañía de la base de datos
