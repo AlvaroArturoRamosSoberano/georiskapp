@@ -16,12 +16,11 @@ return new class extends Migration
             $table->string('identifier_key');
             $table->string('description');
             $table->string('image_path');
-            $table->string('kind_company');
+            $table->foreignId('company_type_id')->constrained();
             $table->foreignId('brand_id')->constrained();
             $table->foreignId('geographic_detail_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
-
             //$table->foreign('brand_id')->refrences('id')->on('brands');
 
         });

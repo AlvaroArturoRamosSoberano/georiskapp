@@ -10,7 +10,7 @@ class Company extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['identifier_key', 'description', 'image_path', 'kind_company', 'brand_id', 'geographic_detail_id'];
+    protected $fillable = ['identifier_key', 'description', 'image_path', 'company_type_id', 'brand_id', 'geographic_detail_id'];
 
     public function brand()
     {
@@ -20,8 +20,12 @@ class Company extends Model
     {
         return $this->belongsTo(GeographicDetail::class);
     }
+    public function companyType()
+    {
+        return $this->belongsTo(CompanyType::class);
+    }
     public function gasPlant()
     {
-        return $this ->hasMany(GasPlant::class);
+        return $this->hasMany(GasPlant::class);
     }
 }

@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regulatory_aspects', function (Blueprint $table) {
+        Schema::create('regulatory_system_protections', function (Blueprint $table) {
             $table->id();
-            $table->boolean('conservation_program');
-            $table->boolean('gas_production');
-            $table->boolean('emergency_plan');
-            $table->integer('explosiveness');
-            $table->foreignId('license_id')->constrained();
-            $table->foreignId('company_id')->constrained();
+            $table->foreignId('regulatory_aspect_id')->constrained();
+            $table->foreignId('system_protection_id')->constrained();
+            $table->integer('quantity');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regulatory_aspects');
+        Schema::dropIfExists('regulatory_system_protections');
     }
 };
