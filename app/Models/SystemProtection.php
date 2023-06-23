@@ -14,4 +14,8 @@ class SystemProtection extends Model
     {
         return $this->hasMany(GasPlant::class);
     }
+    public function regulatorySystemProtection()
+    {
+        return $this->hasMany(RegulatorySystemProtection::class);
+    }
 }

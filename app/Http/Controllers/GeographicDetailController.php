@@ -6,6 +6,7 @@ use App\Models\GeographicDetail;
 use App\Models\Colony;
 use App\Models\Township;
 use App\Models\Company;
+use App\Models\CompanyType;
 use App\Models\State;
 use App\Models\Brand;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class GeographicDetailController extends Controller
         //
         $geographic_detail = new GeographicDetail();
         $company = new Company();
-        $companies = Company::pluck('kind_company', 'id')->unique();
+        $companies = CompanyType::pluck('name', 'id');
         $colonies = Colony::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');

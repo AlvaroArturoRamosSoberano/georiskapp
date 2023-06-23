@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gas_system_protections', function (Blueprint $table) {
+        Schema::create('company_risk_aspects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gas_plant_id')->constrained();
-            $table->foreignId('system_protection_id')->constrained();
-            $table->integer('quantity');
+            $table->foreignId('company_id')->constrained();
+            $table->foreignId('risk_aspect_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gas_system_protections');
+        Schema::dropIfExists('company_risk_aspects');
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CompanyTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\KmlController;
@@ -32,9 +33,10 @@ Route::get('/company/create', [CompanyController::class, 'create']);
 Route::resource('company', CompanyController::class)->middleware('auth');
 Route::resource('brand', BrandController::class)->middleware('auth');
 Route::resource('geographicDetail', GeographicDetailController::class)->middleware('auth');
+Route::resource('companyType', CompanyTypeController::class)->middleware('auth');
 
 //Eliminar cosas del Login
-Auth::routes(['register' => false, 'reset' => false, 'brand.index'=> false]);
+Auth::routes(['register' => false, 'reset' => false, 'brand.index' => false]);
 
 
 Route::get('/home', [CompanyController::class, 'index'])->name('home');
@@ -46,4 +48,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
 Route::get('/geographicDetail', [GeographicDetailController::class, 'index'])->name('geographicDetail.index');
+Route::get('/companyType', [CompanyTypeController::class, 'index'])->name('companyType.index');
 Route::get('/exportar-kml', [KmlController::class, 'exportarKml'])->name('exportar-kml');

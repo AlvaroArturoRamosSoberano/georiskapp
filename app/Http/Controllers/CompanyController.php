@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyStoreRequest;
 use App\Models\Brand;
 use App\Models\Company;
+use App\Models\CompanyType;
 use App\Models\GeographicDetail;
 use App\Models\Township;
 use App\Models\State;
@@ -49,7 +50,7 @@ class CompanyController extends Controller
         $company = new Company();
         $geographic_detail = new GeographicDetail();
         $brands = Brand::pluck('name', 'id');
-        $companies = Company::pluck('kind_company', 'id')->unique();
+        $companies = CompanyType::pluck('name', 'id');
         $colonies = Colony::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
@@ -102,7 +103,7 @@ class CompanyController extends Controller
         $company = Company::findOrFail($id);
         $geographic_detail = $company->geographicDetail;
         $brands = Brand::pluck('name', 'id');
-        $companies = Company::pluck('kind_company', 'id')->unique();
+        $companies = CompanyType::pluck('name', 'id');
         $colonies = Colony::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');

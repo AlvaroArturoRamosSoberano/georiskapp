@@ -25,41 +25,34 @@
     <body>
         <div class="containertab m-auto">
             <div class="table_header">
-                <a href="{{ url('brand/create') }}" class="btn btn-primary btn-sm">Ingresar Nueva Linea</a>
+                <a href="{{ url('companyType/create') }}" class="btn btn-primary btn-sm">Ingresar Nuevo Tipo de Empresa</a>
                 <div class="input_search">
                     <input type="text" class="search-input" placeholder="Buscar" />
                     <i class="bi bi-search" id="search"></i>
                 </div>
             </div>
             <div class="container">
-
                 <table class="table align-middle">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Linea/Marca</th>
-                            <th>Logo</th>
+                            <th>Tipo Compañia</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($brands as $brand)
+                        @foreach ($companies as $company)
                             <tr>
-                                <td>{{ $brand->id }}</td>
-                                <td>{{ $brand->name }}</td>
-                                <td class="align-middle ">
-                                    <img src="{{ asset('storage') . '/' . $brand->logo_path }}"
-                                        class="img-thumbnail img-fluid " alt="{{ $brand->name }}"
-                                        style="height: 50px; width:200px">
-                                </td>
+                                <td>{{ $company->id }}</td>
+                                <td>{{ $company->name }}</td>
                                 <td>
                                     <button type="button"
-                                        onclick="window.location.href='{{ url('/brand/' . $brand->id . '/edit') }}'"
+                                        onclick="window.location.href='{{ url('/company/' . $company->id . '/edit') }}'"
                                         class="btn bg-transparent btn-sm">
                                         <i class="bi bi-pencil-square" id="icons"></i>
                                     </button>
 
-                                    <form action="{{ url('/brand/' . $brand->id) }}" method="post" class="d-inline">
+                                    <form action="{{ url('/brand/' . $company->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <button type="submit" onclick="return confirm('¿Quieres borrar?')"
@@ -77,14 +70,15 @@
                 <!--pagination-->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end pagination-sm ">
-                        <li class="page-item"><a class="page-link" href="{{ $brands->previousPageUrl() }}">Anterior</a>
+                        <li class="page-item"><a class="page-link" href="{{ $companies->previousPageUrl() }}">Anterior</a>
                         </li>
-                        @for ($id = 1; $id <= $brands->lastPage(); $id++)
-                            <li class="page-item {{ $brands->currentPage() == $id ? 'active' : '' }}">
-                                <a class="page-link" href="{{ $brands->url($id) }}">{{ $id }}</a>
+                        @for ($id = 1; $id <= $companies->lastPage(); $id++)
+                            <li class="page-item {{ $companies->currentPage() == $id ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $companies->url($id) }}">{{ $id }}</a>
                             </li>
                         @endfor
-                        <li class="page-item"><a class="page-link" href="{{ $brands->nextPageUrl() }}">Siguiente</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ $companies->nextPageUrl() }}">Siguiente</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

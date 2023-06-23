@@ -1,190 +1,219 @@
+<head>
+
+</head>
+
 <div class="container" id="vue">
-    <form>
-        <h1>{{ $modo }} Empresa</h1>
 
-        <fieldset>
-            {{-- <legend>Bar progress</legend> --}}
-            <el-steps :space="200" :active="active" align-center finish-status="success" simple>
-                <el-step v-for="step in stepper" style="cursor: pointer" @click="changeStepper(step.number)"
-                    :title="step.title" :description="step.description">
-                </el-step>
-            </el-steps>
-        </fieldset>
+    <div class="card">
+        <h5 class="card-header">{{ $modo }} Empresa</h5>
+        <div class="card-body">
+            <form>
+                <fieldset>
+                    {{-- <legend>Bar progress</legend> --}}
+                    <el-steps :space="200" :active="active" align-center finish-status="success" simple>
+                        <el-step v-for="step in stepper" style="cursor: pointer" @click="changeStepper(step.number)"
+                            :title="step.title" :description="step.description">
+                        </el-step>
+                    </el-steps>
+                </fieldset>
 
-        <fieldset v-if="active === 1">
-            {{-- <legend>Company information</legend> --}}
-            <section class="form-section">
-                <div class="form-group">
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="identifier_key"
-                            value="{{ $company->identifier_key }}" id="identifier_key"
-                            title="El identificador debe tener el formato XX/XXXXX/XXX/XX/XXXX"
-                            placeholder="Identificador">
-                        <label for="identifier_key">Identificador</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" name="description"
-                            value="{{ $company->description }}" id="description" placeholder="Descripción">
-                        <label for="description">Descripción</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $company->image_path }}"
-                        alt="{{ $company->identifier_key }}" width="100">
-                    <input type="file" class="form-control mb-2" name="image_path" value="" id="image_path">
-                </div>
-            </section>
-
-            <section class="form-section">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
+                <fieldset v-if="active === 1">
+                    {{-- <legend>Company information</legend> --}}
+                    <section class="form-section">
+                        <div class="form-group m-2">
                             <div class="form-floating">
-                                <select class="form-select" name="kind_company" id="kind_company"
-                                    placeholder="Tipo de Empresa">
-                                    <option value="">Seleccione un tipo de empresa</option>
-                                    @foreach ($companies as $id => $kind)
-                                        <option value="{{ $kind }}"
-                                            {{ $company->kind_company == $kind ? 'selected' : '' }}>
-                                            {{ $kind }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="kind_company">Tipo de Empresa</label>
+                                <input v-model="formData.identifier_key" type="text" class="form-control"
+                                    name="identifier_key" value="{{ $company->identifier_key }}" id="identifier_key"
+                                    title="El identificador debe tener el formato XX/XXXXX/XXX/XX/XXXX"
+                                    placeholder="Identificador">
+                                <label for="identifier_key">Identificador</label>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <div class="form-floating ">
-                                <select class="form-select" name="brand_id" id="brand_id" placeholder="Tipo de Linea">
-                                    <option value="">Seleccione una línea</option>
-                                    @foreach ($brands as $id => $name)
-                                        <option value="{{ $id }}"
-                                            {{ $id == $company->brand_id ? 'selected' : '' }}>
-                                            {{ $name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="brand_id">Marca de la Empresa</label>
+                        <div class="form-group m-2">
+                            <div class="form-floating">
+                                <input v-model="formData.description" type="text" class="form-control "
+                                    name="description" value="{{ $company->description }}" id="description"
+                                    placeholder="Descripción">
+                                <label for="description">Descripción</label>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <input type="text" class="form-control" name="geographic_detail_id"
-                        value="{{ $company->geographic_detail_id }}" id="geographic_detail_id" hidden>
-                </div>
-        </fieldset>
-
-        <fieldset v-if="active === 2">
-            <legend>Information Geographic Details</legend>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <div class="form-floating mb-2">
-                            <input type="number" step="any" class="form-control" name="latitude" id="latitude"
-                                value="{{ $geographic_detail->latitude }}" placeholder="Latitude">
-                            <label for="latitude">Latitud</label>
+                        <div class="form-group me-3">
+                            <img class="img-thumbnail img-fluid"
+                                src="{{ asset('storage') . '/' . $company->image_path }}"
+                                alt="{{ $company->identifier_key }}" width="100">
+                            <input v-model="formData.image_path" type="file" class="form-control m-2"
+                                name="image_path" value="" id="image_path">
                         </div>
-                    </div>
-                </div>
+                    </section>
 
-                <div class="col">
-                    <div class="form-group">
-                        <div class="form-floating">
-                            <input type="number" step="any" class="form-control" name="longitude" id="longitude"
-                                value="{{ $geographic_detail->longitude }}" placeholder="Longitud">
-                            <label for="longitude">Longitud</label>
+                    <section class="form-section m-2">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="form-floating">
+                                        <select v-model="formData.kind_company" class="form-select" name="kind_company"
+                                            id="kind_company" placeholder="Tipo de Empresa">
+                                            <option value="">Seleccione un tipo de empresa</option>
+                                            @foreach ($companies as $id => $kind)
+                                                <option value="{{ $kind }}"
+                                                    {{ $company->kind_company == $kind ? 'selected' : '' }}>
+                                                    {{ $kind }}
+                                                </option>
+                                            @endforeach
+                                            <option value="other">Otro</option>
+                                        </select>
+                                        <label for="kind_company">Tipo de Empresa</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="form-floating">
+                                        <select v-model="formData.brand_id" class="form-select" name="brand_id"
+                                            id="brand_id" placeholder="Tipo de Linea">
+                                            <option value="">Seleccione una línea</option>
+                                            @foreach ($brands as $id => $name)
+                                                <option value="{{ $id }}"
+                                                    {{ $id == $company->brand_id ? 'selected' : '' }}>
+                                                    {{ $name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <label for="brand_id">Marca de la Empresa</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="address" name="address"
-                        value="{{ $geographic_detail->address }}" placeholder="Dirección">
-                    <label for="address">Dirección</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-2">
-                    <div class="form-group">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" name="zip_code" id="zip_code"
-                                value="{{ $geographic_detail->zip_code }}" placeholder="Codigo postal">
-                            <label for="zip_code">Código Postal</label>
+                        <div class="form-group m-2">
+                            <input v-model="formData.geographic_detail_id" type="text" class="form-control"
+                                name="geographic_detail_id" value="{{ $company->geographic_detail_id }}"
+                                id="geographic_detail_id" hidden>
                         </div>
-                    </div>
-                </div>
+                    </section>
+                </fieldset>
+                <div class="animate__slideInRight">
+                    <fieldset v-if="active === 2">
+                        {{-- <legend>Information Geographic Details</legend> --}}
+                        <section class="form-section m-2">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <input v-model="formData.latitude"type="number" step="any"
+                                                class="form-control" name="latitude" id="latitude"
+                                                value="{{ $geographic_detail->latitude }}" placeholder="Latitude">
+                                            <label for="latitude">Latitud</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="col-4">
-                    <div class="form-group">
-                        <div class="form-floating">
-                            <select class="form-select" name="colony_id" id="colony_id" placeholder="Colonia">
-                                <option value="">Seleccione una Colonia</option>
-                                @foreach ($colonies as $id => $name)
-                                    <option value="{{ $id }}"
-                                        {{ $id == $geographic_detail->colony_id ? 'selected' : '' }}>
-                                        {{ $name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label for="colony_id">Colonia</label>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <input v-model="formData.longitude" type="number" step="any"
+                                                class="form-control" name="longitude" id="longitude"
+                                                value="{{ $geographic_detail->longitude }}" placeholder="Longitud">
+                                            <label for="longitude">Longitud</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="form-group m-2">
+                            <div class="form-floating">
+                                <input v-model="formData.address" type="text" class="form-control" id="address"
+                                    name="address" value="{{ $geographic_detail->address }}"
+                                    placeholder="Dirección">
+                                <label for="address">Dirección</label>
+                            </div>
                         </div>
-                    </div>
+                        <section class="form-section m-2">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <input v-model="formData.zip_code" type="text" class="form-control"
+                                                name="zip_code" id="zip_code"
+                                                value="{{ $geographic_detail->zip_code }}"
+                                                placeholder="Codigo postal">
+                                            <label for="zip_code">Código Postal</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <select v-model="formData.colony_id" class="form-select" name="colony_id"
+                                                id="colony_id" placeholder="Colonia">
+                                                <option value="">Seleccione una Colonia</option>
+                                                @foreach ($colonies as $id => $name)
+                                                    <option value="{{ $id }}"
+                                                        {{ $id == $geographic_detail->colony_id ? 'selected' : '' }}>
+                                                        {{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <label for="colony_id">Colonia</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <select v-model="formData.township_id" class="form-select"
+                                                name="township_id" id="township_id" placeholder="Municipio">
+                                                <option value="">Seleccione un Municipio</option>
+                                                @foreach ($townships as $id => $name)
+                                                    <option value="{{ $id }}"
+                                                        {{ $id == $geographic_detail->township_id ? 'selected' : '' }}>
+                                                        {{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <label for="township_id">Municipio</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <select v-model="formData.state_id" class="form-select" name="state_id"
+                                                id="state_id" placeholder="Estado">
+                                                <option value="">Seleccione un Estado</option>
+                                                @foreach ($states as $id => $name)
+                                                    <option value="{{ $id }}"
+                                                        {{ $id == $geographic_detail->state_id ? 'selected' : '' }}>
+                                                        {{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <label for="state_id">Estado</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </fieldset>
                 </div>
 
-                <div class="col-3">
-                    <div class="form-group">
-                        <div class="form-floating">
-                            <select class="form-select" name="township_id" id="township_id" placeholder="Municipio">
-                                <option value="">Seleccione un Municipio</option>
-                                @foreach ($townships as $id => $name)
-                                    <option value="{{ $id }}"
-                                        {{ $id == $geographic_detail->township_id ? 'selected' : '' }}>
-                                        {{ $name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label for="township_id">Municipio</label>
-                        </div>
-                    </div>
+
+                <div class="w-100 d-flex justify-content-end">
+                    <input class="btn btn-success btn-sm m-2" type="submit" value="{{ $modo }} Empresa">
+                    <a class="btn btn-primary btn-sm m-2" href="{{ url('company/') }}">Regresar</a>
+                    <el-button style="margin-top: 8px" @click="next">Siguiente paso</el-button>
                 </div>
-
-                <div class="col-3">
-                    <div class="form-group">
-                        <div class="form-floating">
-                            <select class="form-select" name="state_id" id="state_id" placeholder="Estado">
-                                <option value="">Seleccione un Estado</option>
-                                @foreach ($states as $id => $name)
-                                    <option value="{{ $id }}"
-                                        {{ $id == $geographic_detail->state_id ? 'selected' : '' }}>
-                                        {{ $name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label for="state_id">Estado</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
-        <div class="w-100 d-flex justify-content-end">
-            <input class="btn btn-success btn-sm mt-2 me-2" type="submit" value="{{ $modo }} Empresa">
-            <a class="btn btn-primary btn-sm mt-2 me-2" href="{{ url('company/') }}">Regresar</a>
-            <el-button style="margin-top: 8px" @click="next">Siguiente paso</el-button>
-
+                </section>
+            </form>
         </div>
-        </section>
-    </form>
+    </div>
 </div>
 
 <script>
@@ -228,23 +257,39 @@
             const stepper = ref([{
                     title: "Datos Generales",
                     number: 1,
-                    description: "Hola"
+                    description: "Datos Generales de la empresa"
                 },
                 {
                     title: "Datos Geograficos",
                     number: 2,
-                    description: "Hola2"
+                    description: "Datos Geograficos de la empresa"
                 },
                 {
                     title: "Datos Regulatorios",
                     number: 3,
-                    description: "Hola3"
+                    description: "Datos Regulatorios de la empresa"
                 }
 
             ])
+            const formData = ref({
+                identifier_key: '',
+                description: '',
+                image_path: '',
+                kind_company: '',
+                brand_id: '',
+                geographic_detail_id: '',
+                latitude: '',
+                longitude: '',
+                address: '',
+                zip_code: '',
+                colony_id: '',
+                township_id: '',
+                state_id: ''
+            })
             const active = ref(1)
             const changeStepper = (number) => {
                 active.value = number
+                /* axios.post("/company", formData.value) */
             }
             const next = (number) => {
                 if (active.value++ > number) active.value = 0
@@ -254,6 +299,7 @@
                 active,
                 changeStepper,
                 next,
+                formData,
             }
         }
     }
