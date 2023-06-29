@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyRiskAspect;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyRiskAspectController extends Controller
@@ -13,6 +14,8 @@ class CompanyRiskAspectController extends Controller
     public function index()
     {
         //
+        $companyRiskAspects = CompanyRiskAspect::paginate(5);
+        return view('companyRiskAspect.index', compact('companyRiskAspects'));
     }
 
     /**
@@ -21,6 +24,9 @@ class CompanyRiskAspectController extends Controller
     public function create()
     {
         //
+        $companyRiskAspect = new CompanyRiskAspect();
+        $company = Company::pluck('identifier_key', 'id');
+        return view('companyRiskAspect.create', compact('companyRiskAspect', 'company'));
     }
 
     /**

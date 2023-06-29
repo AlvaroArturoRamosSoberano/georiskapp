@@ -4,9 +4,9 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CompanyTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyRiskAspectController;
 use App\Http\Controllers\KmlController;
 use App\Http\Controllers\GeographicDetailController;
-use App\Http\Controllers\GasPlantController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -35,6 +35,7 @@ Route::resource('company', CompanyController::class)->middleware('auth');
 Route::resource('brand', BrandController::class)->middleware('auth');
 Route::resource('geographicDetail', GeographicDetailController::class)->middleware('auth');
 Route::resource('companyType', CompanyTypeController::class)->middleware('auth');
+Route::resource('companyRiskAspect', CompanyRiskAspectController::class)->middleware('auth');
 
 //Eliminar cosas del Login
 Auth::routes(['register' => false, 'reset' => false, 'brand.index' => false]);
@@ -51,3 +52,4 @@ Route::get('/brand', [BrandController::class, 'index'])->name('brand.index');
 Route::get('/geographicDetail', [GeographicDetailController::class, 'index'])->name('geographicDetail.index');
 Route::get('/companyType', [CompanyTypeController::class, 'index'])->name('companyType.index');
 Route::get('/exportar-kml', [KmlController::class, 'exportarKml'])->name('exportar-kml');
+Route::get('/companyRiskAspect', [CompanyRiskAspectController::class, 'index'])->name('companyRiskAspect.index');

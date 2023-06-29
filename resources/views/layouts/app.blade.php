@@ -32,7 +32,7 @@
                 <a class="navbar-brand" href="{{ url('/company') }}">
                     <img src="{{ asset('storage/images/georiskapp.png') }}" alt="Logo de la aplicación" width="100"
                         height="50">
-                  
+
                     {{-- {{ config('app.name', 'GeoRiskApp') }}   --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -54,7 +54,11 @@
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('geographicDetail.index') }}">Detalles
                                         Geograficos</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="{{ route('companyType.index') }}">Tipos de
+                                        compañia</a></li>
+                                <li><a class="dropdown-item" href="{{ route('companyRiskAspect.index') }}">Aspectos de riesgo-compañias</a></li>
+                                <li><a class="dropdown-item" href="{{ route('license.index') }}">Licenses</a></li>
+
                             </ul>
                         </li>
                     </ul>

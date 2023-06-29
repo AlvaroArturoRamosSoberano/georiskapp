@@ -21,10 +21,11 @@
             </div>
         @endif
 
+
         <body>
             <div class="containertab m-auto">
                 <div class="table_header">
-                    <a href="{{ url('brand/create') }}" class="btn btn-primary btn-sm">Ingresar Nueva Linea</a>
+                    <a href="{{ url('companyRiskAspect/create') }}" class="btn btn-primary btn-sm">Ingresar Nueva Linea</a>
                     <div class="input_search">
                         <input type="text" class="search-input" placeholder="Buscar" />
                         <i class="bi bi-search" id="search"></i>
@@ -36,29 +37,26 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Linea/Marca</th>
-                                <th>Logo</th>
+                                <th>Compañia</th>
+                                <th>Aspecto de riesgo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($brands as $brand)
+                            @foreach ($companyRiskAspects as $companyRiskAspect)
                                 <tr>
-                                    <td>{{ $brand->id }}</td>
-                                    <td>{{ $brand->name }}</td>
-                                    <td class="align-middle ">
-                                        <img src="{{ asset('storage') . '/' . $brand->logo_path }}"
-                                            class="img-thumbnail img-fluid " alt="{{ $brand->name }}"
-                                            style="height: 50px; width:200px">
-                                    </td>
+                                    <td>{{ $companyRiskAspects->id }}</td>
+                                    <td>{{ $companyRiskAspects->company_id }}</td>
+                                    <td>{{ $companyRiskAspects->risk_aspect_id }}</td>
                                     <td>
                                         <button type="button"
-                                            onclick="window.location.href='{{ url('/brand/' . $brand->id . '/edit') }}'"
+                                            onclick="window.location.href='{{ url('/companyRiskAspect/' . $companyRiskAspect->id . '/edit') }}'"
                                             class="btn bg-transparent btn-sm">
                                             <i class="bi bi-pencil-square" id="icons"></i>
                                         </button>
 
-                                        <form action="{{ url('/brand/' . $brand->id) }}" method="post" class="d-inline">
+                                        <form action="{{ url('/brand/' . $companyRiskAspect->id) }}" method="post"
+                                            class="d-inline">
                                             @csrf
                                             {{ method_field('DELETE') }}
                                             <button type="submit" onclick="return confirm('¿Quieres borrar?')"
@@ -72,25 +70,28 @@
                         </tbody>
                     </table>
                 </div>
-
                 <section class="table_footer">
                     <!--pagination-->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end pagination-sm ">
-                            <li class="page-item"><a class="page-link" href="{{ $brands->previousPageUrl() }}">Anterior</a>
+                            <li class="page-item"><a class="page-link"
+                                    href="{{ $companyRiskAspects->previousPageUrl() }}">Anterior</a>
                             </li>
-                            @for ($id = 1; $id <= $brands->lastPage(); $id++)
-                                <li class="page-item {{ $brands->currentPage() == $id ? 'active' : '' }}">
-                                    <a class="page-link" href="{{ $brands->url($id) }}">{{ $id }}</a>
+                            @for ($id = 1; $id <= $companyRiskAspects->lastPage(); $id++)
+                                <li class="page-item {{ $companyRiskAspects->currentPage() == $id ? 'active' : '' }}">
+                                    <a class="page-link"
+                                        href="{{ $companyRiskAspects->url($id) }}">{{ $id }}</a>
                                 </li>
                             @endfor
-                            <li class="page-item"><a class="page-link" href="{{ $brands->nextPageUrl() }}">Siguiente</a>
+                            <li class="page-item"><a class="page-link"
+                                    href="{{ $companyRiskAspects->nextPageUrl() }}">Siguiente</a>
                             </li>
                         </ul>
                     </nav>
                 </section>
             </div>
         </body>
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script>

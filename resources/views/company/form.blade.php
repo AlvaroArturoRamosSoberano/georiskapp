@@ -10,14 +10,14 @@
             <form>
                 <fieldset>
                     {{-- <legend>Bar progress</legend> --}}
-                    <el-steps :space="200" :active="active" align-center finish-status="success" simple>
+                    {{-- <el-steps :space="200" :active="active" align-center finish-status="success" simple>
                         <el-step v-for="step in stepper" style="cursor: pointer" @click="changeStepper(step.number)"
                             :title="step.title" :description="step.description">
                         </el-step>
-                    </el-steps>
+                    </el-steps> --}}
                 </fieldset>
 
-                <fieldset v-if="active === 1">
+                <fieldset {{-- v-if="active === 1" --}}>
                     {{-- <legend>Company information</legend> --}}
                     <section class="form-section">
                         <div class="form-group m-2">
@@ -53,18 +53,18 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="form-floating">
-                                        <select v-model="formData.kind_company" class="form-select" name="kind_company"
-                                            id="kind_company" placeholder="Tipo de Empresa">
+                                        <select v-model="formData.company_type_id" class="form-select"
+                                            name="company_type_id" id="company_type_id" placeholder="Tipo de Empresa">
                                             <option value="">Seleccione un tipo de empresa</option>
-                                            @foreach ($companies as $id => $kind)
-                                                <option value="{{ $kind }}"
-                                                    {{ $company->kind_company == $kind ? 'selected' : '' }}>
-                                                    {{ $kind }}
+                                            @foreach ($companies as $id => $name)
+                                                <option value="{{ $id }}"
+                                                    {{ $id == $company->company_type_id ? 'selected' : '' }}>
+                                                    {{ $name }}
                                                 </option>
                                             @endforeach
                                             <option value="other">Otro</option>
                                         </select>
-                                        <label for="kind_company">Tipo de Empresa</label>
+                                        <label for="company_type_id">Tipo de Empresa</label>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                     </section>
                 </fieldset>
                 <div class="animate__slideInRight">
-                    <fieldset v-if="active === 2">
+                    <fieldset {{-- v-if="active === 2" --}}>
                         {{-- <legend>Information Geographic Details</legend> --}}
                         <section class="form-section m-2">
                             <div class="row">
@@ -275,7 +275,7 @@
                 identifier_key: '',
                 description: '',
                 image_path: '',
-                kind_company: '',
+                company_type_id: '',
                 brand_id: '',
                 geographic_detail_id: '',
                 latitude: '',

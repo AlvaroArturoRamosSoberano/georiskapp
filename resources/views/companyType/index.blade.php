@@ -47,12 +47,12 @@
                                 <td>{{ $company->name }}</td>
                                 <td>
                                     <button type="button"
-                                        onclick="window.location.href='{{ url('/company/' . $company->id . '/edit') }}'"
+                                        onclick="window.location.href='{{ url('/companyType/' . $company->id . '/edit') }}'"
                                         class="btn bg-transparent btn-sm">
                                         <i class="bi bi-pencil-square" id="icons"></i>
                                     </button>
 
-                                    <form action="{{ url('/brand/' . $company->id) }}" method="post" class="d-inline">
+                                    <form action="{{ url('/companyType/' . $company->id) }}" method="post" class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <button type="submit" onclick="return confirm('¿Quieres borrar?')"
