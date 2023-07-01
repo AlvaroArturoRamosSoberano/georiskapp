@@ -13,6 +13,7 @@ class RiskAspectController extends Controller
     public function index()
     {
         //
+        return view('riskAspect.index');
     }
 
     /**
@@ -21,6 +22,8 @@ class RiskAspectController extends Controller
     public function create()
     {
         //
+        $riskAspect = new RiskAspect();
+        return view('riskAspect.create' , compact('riskAspect'));
     }
 
     /**

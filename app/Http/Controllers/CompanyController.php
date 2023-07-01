@@ -9,7 +9,6 @@ use App\Models\CompanyType;
 use App\Models\GeographicDetail;
 use App\Models\Township;
 use App\Models\State;
-use App\Models\Colony;
 
 
 use Illuminate\Http\Request;
@@ -51,14 +50,13 @@ class CompanyController extends Controller
         $geographic_detail = new GeographicDetail();
         $brands = Brand::pluck('name', 'id');
         $companies = CompanyType::pluck('name', 'id');
-        $colonies = Colony::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
         //$geographicDetails = new GeographicDetail();
 
 
-        return view('company.create', compact('geographic_detail', 'colonies', 'townships', 'states', 'company', 'brands', 'companies'));
+        return view('company.create', compact('geographic_detail', 'townships', 'states', 'company', 'brands', 'companies'));
     }
 
     /**
@@ -103,12 +101,11 @@ class CompanyController extends Controller
         $geographic_detail = $company->geographicDetail;
         $brands = Brand::pluck('name', 'id');
         $companies = CompanyType::pluck('name', 'id');
-        $colonies = Colony::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
-        return view('company.edit', compact('geographic_detail', 'colonies', 'townships', 'states', 'company', 'brands', 'companies'));
+        return view('company.edit', compact('geographic_detail', 'townships', 'states', 'company', 'brands', 'companies'));
     }
 
     /**

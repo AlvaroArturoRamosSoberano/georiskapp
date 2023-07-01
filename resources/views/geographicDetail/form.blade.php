@@ -38,20 +38,6 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
-                        <div class="form-floating">
-                            <select class="form-select" name="colony_id" id="colony_id" placeholder="Colonia">
-                                <option value="">Seleccione una Colonia</option>
-                                @foreach ($colonies as $id => $name)
-                                    <option value="{{ $id }}"
-                                        {{ $id == $geographic_detail->colony_id ? 'selected' : '' }}>{{ $name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label for="colony_id">Colonia</label>
-                        </div>
-                    </div>
-
                     <div class="col-3">
                         <div class="form-floating">
                             <select class="form-select" name="township_id" id="township_id" placeholder="Municipio">
@@ -66,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3">
+                    <div class="col-7">
                         <div class="form-floating">
                             <select class="form-select" name="state_id" id="state_id" placeholder="Estado">
                                 <option value="">Seleccione un Estado</option>

@@ -12,7 +12,6 @@ class GasPlant extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
     protected $fillable = ['company_id', 'regulatory_aspect_id'];
 
     public function company()

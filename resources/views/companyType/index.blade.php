@@ -19,8 +19,8 @@
                     }, 3000);
                 </script>
             </div>
+        @endif
     </div>
-    @endif
 
     <body>
         <div class="containertab m-auto">
@@ -52,7 +52,8 @@
                                         <i class="bi bi-pencil-square" id="icons"></i>
                                     </button>
 
-                                    <form action="{{ url('/companyType/' . $company->id) }}" method="post" class="d-inline">
+                                    <form action="{{ url('/companyType/' . $company->id) }}" method="post"
+                                        class="d-inline">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <button type="submit" onclick="return confirm('¿Quieres borrar?')"

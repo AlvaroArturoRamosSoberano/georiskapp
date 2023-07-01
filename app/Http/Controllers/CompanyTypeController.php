@@ -39,7 +39,7 @@ class CompanyTypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.          
      */
     public function show(CompanyType $companyType)
     {

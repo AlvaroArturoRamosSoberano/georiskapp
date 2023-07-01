@@ -58,6 +58,7 @@
                                         compañia</a></li>
                                 <li><a class="dropdown-item" href="{{ route('companyRiskAspect.index') }}">Aspectos de riesgo-compañias</a></li>
                                 <li><a class="dropdown-item" href="{{ route('license.index') }}">Licenses</a></li>
+                                <li><a class="dropdown-item" href="{{ route('riskAspect.index') }}">Aspectos de Riesgo</a></li>
 
                             </ul>
                         </li>

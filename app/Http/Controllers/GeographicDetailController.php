@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\GeographicDetail;
-use App\Models\Colony;
 use App\Models\Township;
 use App\Models\Company;
 use App\Models\CompanyType;
@@ -43,13 +42,12 @@ class GeographicDetailController extends Controller
         $geographic_detail = new GeographicDetail();
         $company = new Company();
         $companies = CompanyType::pluck('name', 'id');
-        $colonies = Colony::pluck('name', 'id');
         $brands = Brand::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
 
-        return view('geographicDetail.create', compact('geographic_detail', 'colonies', 'townships', 'states', 'company', 'companies', 'brands'));
+        return view('geographicDetail.create', compact('geographic_detail', 'townships', 'states', 'company', 'companies', 'brands'));
     }
 
     /**
@@ -89,12 +87,11 @@ class GeographicDetailController extends Controller
         //
         // Obtener el detalle geográfico y la empresa relacionada
         $geographic_detail = GeographicDetail::findOrFail($id);
-        $colonies = Colony::pluck('name', 'id');
         $townships = Township::pluck('name', 'id');
         $states = State::pluck('name', 'id');
 
         // Pasar las variables a la vista
-        return view('geographicDetail.edit', compact('geographic_detail', 'colonies', 'townships', 'states'));
+        return view('geographicDetail.edit', compact('geographic_detail', 'townships', 'states'));
     }
 
     /**

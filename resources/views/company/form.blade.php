@@ -146,24 +146,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <div class="form-floating">
-                                            <select v-model="formData.colony_id" class="form-select" name="colony_id"
-                                                id="colony_id" placeholder="Colonia">
-                                                <option value="">Seleccione una Colonia</option>
-                                                @foreach ($colonies as $id => $name)
-                                                    <option value="{{ $id }}"
-                                                        {{ $id == $geographic_detail->colony_id ? 'selected' : '' }}>
-                                                        {{ $name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <label for="colony_id">Colonia</label>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="col-3">
                                     <div class="form-group">
                                         <div class="form-floating">
@@ -182,7 +164,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-7">
                                     <div class="form-group">
                                         <div class="form-floating">
                                             <select v-model="formData.state_id" class="form-select" name="state_id"
