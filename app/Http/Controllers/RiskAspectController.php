@@ -13,7 +13,8 @@ class RiskAspectController extends Controller
     public function index()
     {
         //
-        return view('riskAspect.index');
+        $riskAspects = RiskAspect::paginate(5);
+        return view('riskAspect.index', compact('riskAspects'));
     }
 
     /**
@@ -23,7 +24,7 @@ class RiskAspectController extends Controller
     {
         //
         $riskAspect = new RiskAspect();
-        return view('riskAspect.create' , compact('riskAspect'));
+        return view('riskAspect.create', compact('riskAspect'));
     }
 
     /**
@@ -32,6 +33,9 @@ class RiskAspectController extends Controller
     public function store(Request $request)
     {
         //
+        $riskAspects = request()->except('_token');
+        RiskAspect::create($riskAspects);
+        return redirect('riskAspect')->with('mensaje', 'Aspecto de riesgo agregado con éxito');
     }
 
     /**
@@ -45,24 +49,37 @@ class RiskAspectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RiskAspect $riskAspect)
+    public function edit($id)
     {
         //
+        $riskAspect = RiskAspect::findOrFail($id);
+        return view('riskAspect.edit', compact('riskAspect'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RiskAspect $riskAspect)
+    public function update(Request $request,  $id)
     {
         //
+        $riskAspect = RiskAspect::findOrFail($id);
+        $riskAspects = $request->except(['_token', '_method']);
+
+        // Actualizamos en la base de datos
+        $riskAspect->update($riskAspects);
+        // Redirigimos al usuario a la vista de index actualizada
+        return redirect()->route('riskAspect.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiskAspect $riskAspect)
+    public function destroy($id)
     {
         //
+        $riskAspect = RiskAspect::findOrFail($id);
+        //Elinamos de la base de datos
+        $riskAspect->delete();
+        return redirect('riskAspect')->with('mensaje', 'Aspecto de riesgo eliminado correctamente');
     }
 }

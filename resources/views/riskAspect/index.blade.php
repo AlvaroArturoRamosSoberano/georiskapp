@@ -43,15 +43,65 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Numero 1</td>
-                            <td>Tanque de gas</td>
-                            <td>Jeje</td>
-                            <td></td>
-                        </tr>
+                        @foreach ($riskAspects as $riskAspect)
+                            <tr>
+                                <td>{{ $riskAspect->id }}</td>
+                                <td>{{ $riskAspect->name }}</td>
+                                <td>{{ $riskAspect->type }}</td>
+                                <td>
+                                    <button type="button"
+                                        onclick="window.location.href='{{ url('/riskAspect/' . $riskAspect->id . '/edit') }}'"
+                                        class="btn bg-transparent btn-sm">
+                                        <i class="bi bi-pencil-square" id="icons"></i>
+                                    </button>
+                                    <form action="{{ url('/riskAspect/') . $riskAspect->id }}" method="post"
+                                        class="d-inline">
+                                        @csrf
+                                        {{ method_field('DELETE') }}
+                                        <button type="submit" onclick="return confirm('¿Quieres borrar?')"
+                                            class="btn bg-transparent btn-sm">
+                                            <i class="bi bi-trash" id="icons"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
+            <div class="table_footer">
+                <!--pagination-->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end pagination-sm ">
+                        <li class="page-item"><a class="page-link" href="{{ $riskAspects->previousPageUrl() }}">Anterior</a>
+                        </li>
+                        @for ($id = 1; $id <= $riskAspects->lastPage(); $id++)
+                            <li class="page-item {{ $riskAspects->currentPage() == $id ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $riskAspects->url($id) }}">{{ $id }}</a>
+                            </li>
+                        @endfor
+                        <li class="page-item"><a class="page-link" href="{{ $riskAspects->nextPageUrl() }}">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.search-input').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('tbody tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            $('#reset-search').on('click', function() {
+                $('.search-input').val('');
+                $('tbody tr').show();
+            });
+        });
+    </script>
 @endsection

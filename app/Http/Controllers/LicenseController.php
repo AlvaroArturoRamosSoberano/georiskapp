@@ -65,9 +65,9 @@ class LicenseController extends Controller
         $license = License::findOrFail($id);
         $licenses = $request->except(['_token', '_method']);
 
-        // Actualizamos la compañía en la base de datos
+        // Actualizamos en la base de datos
         $license->update($licenses);
-        // Redirigimos al usuario a la vista de index de la compañía actualizada
+        // Redirigimos al usuario a la vista de index actualizada
         return redirect()->route('license.index');
     }
 
@@ -78,8 +78,8 @@ class LicenseController extends Controller
     {
         //
         $license = License::findOrFail($id);
-        //Elinamos la compañia de la base de datos
+        //Elinamos de la base de datos
         $license->delete();
-        return redirect('license')->with('mensaje', 'Licensia eliminada con éxito');
+        return redirect('license')->with('mensaje', 'Licencia eliminada con éxito');
     }
 }
