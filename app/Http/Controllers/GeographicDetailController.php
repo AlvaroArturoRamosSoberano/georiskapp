@@ -62,7 +62,7 @@ class GeographicDetailController extends Controller
         $geographic_detail = GeographicDetail::create($geographic_details);
 
         // Obtener los datos para Company
-        $company_data = $request->only('identifier_key', 'description', 'image_path', 'kind_company', 'brand_id');
+        $company_data = $request->only('identifier_key', 'description', 'image_path', 'company_type_id', 'brand_id');
         // Asignar el geographic_detail_id al Company
         $company_data['geographic_detail_id'] = $geographic_detail->id;
         // Crear el registro en Company

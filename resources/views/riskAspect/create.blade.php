@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-fluid">
-        <form action="{{ url('/riskAspect') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('/riskAspect') }}" method="post">
             @csrf
             @include('riskAspect.form', ['modo' => 'Ingresar'])
         </form>

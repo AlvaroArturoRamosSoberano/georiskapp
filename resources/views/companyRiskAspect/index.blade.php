@@ -45,9 +45,9 @@
                         <tbody>
                             @foreach ($companyRiskAspects as $companyRiskAspect)
                                 <tr>
-                                    <td>{{ $companyRiskAspects->id }}</td>
-                                    <td>{{ $companyRiskAspects->company_id }}</td>
-                                    <td>{{ $companyRiskAspects->risk_aspect_id }}</td>
+                                    <td>{{ $companyRiskAspect->id }}</td>
+                                    <td>{{ $companyRiskAspect->company->identifier_key }}</td>
+                                    <td>{{ $companyRiskAspect->riskAspect->name }}</td>
                                     <td>
                                         <button type="button"
                                             onclick="window.location.href='{{ url('/companyRiskAspect/' . $companyRiskAspect->id . '/edit') }}'"
@@ -55,7 +55,7 @@
                                             <i class="bi bi-pencil-square" id="icons"></i>
                                         </button>
 
-                                        <form action="{{ url('/brand/' . $companyRiskAspect->id) }}" method="post"
+                                        <form action="{{ url('/companyRiskAspect/' . $companyRiskAspect->id) }}" method="post"
                                             class="d-inline">
                                             @csrf
                                             {{ method_field('DELETE') }}

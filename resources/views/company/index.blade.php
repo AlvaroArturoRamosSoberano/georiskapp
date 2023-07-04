@@ -59,7 +59,7 @@
                                     </td>
                                     <td>{{ $company->identifier_key }}</td>
                                     <td class="text-truncate">{{ $company->description }}</td>
-                                    <td>{{ $company->kind_company }}</td>
+                                    <td>{{ $company->companyType->name}}</td>
                                     <td>{{ $company->brand->name }}</td>
                                     <td>
                                         <button type="button"
