@@ -13,8 +13,8 @@ class License extends Model
     use SoftDeletes;
     protected $fillable = ['name'];
 
-    public function regulatoryAspect()
+    public function regulatoryLicense()
     {
-        return $this->hasMany(RegulatoryAspect::class);
+        return $this->hasMany(RegulatoryLicense::class);
     }
 }

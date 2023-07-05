@@ -65,9 +65,9 @@ class CompanyTypeController extends Controller
         $company = CompanyType::findOrFail($id);
         $companies = $request->except(['_token', '_method']);
 
-        // Actualizamos la compañía en la base de datos
+        // Actualizamos en la base de datos
         $company->update($companies);
-        // Redirigimos al usuario a la vista de index de la compañía actualizada
+        // Redirigimos al usuario a la vista de index actualizada
         return redirect()->route('companyType.index');
     }
 

@@ -27,7 +27,7 @@
             <div class="table_header">
                 <a href="{{ url('license/create') }}" class="btn btn-primary btn-sm">Ingresar Nueva Licencia</a>
                 <div class="input_search">
-                    <input type="text" class="search-input" placeholder="Busar" />
+                    <input type="text" class="search-input" placeholder="Buscar" />
                     <i class="bi bi-search" id="search"></i>
                 </div>
             </div>

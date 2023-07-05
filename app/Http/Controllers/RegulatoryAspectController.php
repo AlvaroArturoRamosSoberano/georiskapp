@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\RegulatoryAspect;
+use App\Models\RegulatoryLicense;
+use App\Models\License;
 use Illuminate\Http\Request;
 
 class RegulatoryAspectController extends Controller
@@ -13,6 +15,7 @@ class RegulatoryAspectController extends Controller
     public function index()
     {
         //
+        return view('regulatoryAspect.index');
     }
 
     /**
@@ -21,6 +24,13 @@ class RegulatoryAspectController extends Controller
     public function create()
     {
         //
+        $regulatoryAspect = new RegulatoryAspect();
+        $regulatoryAspect->conservation_program = true;
+        $regulatoryAspect->gas_production = false;
+        $regulatoryAspect->emergency_plan = false;
+
+        $licenses = License::pluck('name', 'id')->toArray();
+        return view('regulatoryAspect.create', compact('regulatoryAspect', 'licenses'));
     }
 
     /**
@@ -29,6 +39,12 @@ class RegulatoryAspectController extends Controller
     public function store(Request $request)
     {
         //
+        $regulatoryAspects = request()->except('_token');
+        $regulatoryAspects = RegulatoryAspect::create($regulatoryAspects);
+        foreach ($request->license_id as $license) {
+            RegulatoryLicense::firstOrCreate(['license_id' => $license, 'regulatory_aspect_id' => $regulatoryAspects->id]);
+        }
+        return redirect('regulatoryAspect')->with('mensaje', 'Ingresado con éxito');
     }
 
     /**

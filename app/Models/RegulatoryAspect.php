@@ -11,16 +11,16 @@ class RegulatoryAspect extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['conservation_program', 'gas_production', 'explosiveness', 'license_id', 'emergency_plan', 'company_id'];
+    protected $fillable = ['conservation_program', 'gas_production', 'explosiveness', 'emergency_plan', 'company_id'];
 
     public function gasPlant()
     {
         return $this->hasMany(GasPlant::class);
     }
 
-    public function license()
+    public function regulatoryLicenses()
     {
-        return $this->belongsTo(License::class);
+        return $this->hasMany(RegulatoryLicense::class);
     }
 
     public function regulatorySystemProtection()

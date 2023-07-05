@@ -59,6 +59,8 @@
                                 <li><a class="dropdown-item" href="{{ route('companyRiskAspect.index') }}">Aspectos de riesgo-compañias</a></li>
                                 <li><a class="dropdown-item" href="{{ route('license.index') }}">Licenses</a></li>
                                 <li><a class="dropdown-item" href="{{ route('riskAspect.index') }}">Aspectos de Riesgo</a></li>
+                                <li><a class="dropdown-item" href="{{ route('regulatoryAspect.index') }}">Aspectos Regulatorios</a></li>
+                                <li><a class="dropdown-item" href="{{ route('regulatoryLicense.index') }}">Aspectos Regulatorios-Licencias</a></li>
 
                             </ul>
                         </li>

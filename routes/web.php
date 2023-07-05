@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyRiskAspectController;
 use App\Http\Controllers\RiskAspectController;
+use App\Http\Controllers\RegulatoryAspectController;
 use App\Http\Controllers\KmlController;
 use App\Http\Controllers\GeographicDetailController;
 use App\Http\Controllers\LicenseController;
@@ -40,6 +41,8 @@ Route::resource('companyType', CompanyTypeController::class)->middleware('auth')
 Route::resource('companyRiskAspect', CompanyRiskAspectController::class)->middleware('auth');
 Route::resource('license', LicenseController::class)->middleware('auth');
 Route::resource('riskAspect', RiskAspectController::class)->middleware('auth');
+Route::resource('regulatoryAspect', RegulatoryAspectController::class)->middleware('auth');
+Route::resource('regulatoryLicense', RegulatoryLicenseController::class)->middleware('auth');
 
 //Eliminar cosas del Login
 Auth::routes(['register' => false, 'reset' => false, 'brand.index' => false]);
@@ -59,3 +62,8 @@ Route::get('/exportar-kml', [KmlController::class, 'exportarKml'])->name('export
 Route::get('/companyRiskAspect', [CompanyRiskAspectController::class, 'index'])->name('companyRiskAspect.index');
 Route::get('/license', [LicenseController::class, 'index'])->name('license.index');
 Route::get('/riskAspect', [RiskAspectController::class, 'index'])->name('riskAspect.index');
+Route::get('/regulatoryAspect', [RegulatoryAspectController::class, 'index'])->name('regulatoryAspect.index');
+Route::get('/regulatoryLicense', [RegulatoryLicenseController::class, 'index'])->name('regulatoryLicense.index');
+
+//CR
+Route::post('/regulatoryAspect/createRegulatoryAspect', [RegulatoryAspectController::class, 'store']);
